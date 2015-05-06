@@ -1,17 +1,17 @@
 var body = document.body;
 
 // find a right icon
-var icon = (function(code) {
+var icon = (function (code) {
   var map = {
-    '01d': 'wi-day-sunny',  	        // clear sky
-    '02d': 'wi-day-cloudy',  	        // few clouds
-    '03d': 'wi-cloud',  	            // scattered clouds
-    '04d': 'wi-cloudy',  	            // broken clouds
-    '09d': 'wi-rain',  	              // shower rain
-    '10d': 'wi-day-rain',  	          // rain
-    '11d': 'wi-lightning',  	        // thunderstorm
-    '13d': 'wi-snow-wind',            // snow
-    '50d': 'wi-fog',                  // mist
+    '01d': 'wi-day-sunny',              // clear sky
+    '02d': 'wi-day-cloudy',             // few clouds
+    '03d': 'wi-cloud',                  // scattered clouds
+    '04d': 'wi-cloudy',                 // broken clouds
+    '09d': 'wi-rain',                   // shower rain
+    '10d': 'wi-day-rain',               // rain
+    '11d': 'wi-lightning',              // thunderstorm
+    '13d': 'wi-snow-wind',              // snow
+    '50d': 'wi-fog',                    // mist
     '01n': 'wi-stars',
     '02n': 'wi-night-alt-cloudy',
     '03n': 'wi-cloud',
@@ -22,16 +22,16 @@ var icon = (function(code) {
     '13n': 'wi-snow-wind',
     '50n': 'wi-fog'
   };
-  
+
   return function weatherIcon(code) {
     return map[code] || 'wi-cloud-refresh';
   };
 })();
 
 // map week
-var day = (function() {
+var day = (function () {
   var map = ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat'];
-  return function(index) {
+  return function (index) {
     return map[index];
   };
 })();
@@ -39,20 +39,19 @@ var day = (function() {
 
 // is the app installed on home screen
 void function standalone() {
-  if(navigator.standalone) body.classList.add('standalone');
-}();
+  if (navigator.standalone) body.classList.add('standalone');
+} ();
 
 // fetch data
 void function weather() {
-  if(!navigator.standalone) return;
-  
+  if (!navigator.standalone) return;
+
   var script = document.createElement('script');
   var fish = document.querySelector('#fish');
-  
+
   script.onload = loaded;
-  
   script.src = 'http://api.openweathermap.org/data/2.5/forecast?q=Shanghai,cn&lang=zh_cn&callback=render';
-  
+
   this.render = render;
   body.appendChild(script);
   
@@ -68,80 +67,80 @@ void function weather() {
     var loading = $('#loading', fish);
     loading && loading.classList.remove('active');
   }
-}();
+} ();
 
 
 // jQuery-Like $
 function $(selector, parent) {
   parent = parent || document;
-  if(/^\#\w+$/.test(selector)) return parent.querySelector(selector);
+  if (/^\#\w+$/.test(selector)) return parent.querySelector(selector);
   return [].slice.call(parent.querySelectorAll(selector));
 }
 
 // refomat data
 function compose(data) {
   var _current = data.list[3];
-  var _today =  today(Date.now());
+  var _today = today(Date.now());
   
   // today
   var current = {
     city: data.city.name + ',' + data.city.country,
     weather: _current.weather[0].description,
     temp: f2c(_current.main.temp),
-    date:  _today[1] + '.' + _today[2] + ' ' + _today[0],
+    date: _today[1] + '.' + _today[2] + ' ' + _today[0],
     icon: icon(_current.weather[0].icon)
   }
-  
-  
-  var week = (function(list){
+
+
+  var week = (function (list) {
     var arr = []
     var obj = {};
-    
-    list.forEach(function(current){      
+
+    list.forEach(function (current) {
       var t = today(current.dt * 1000);
       var id = t[2];
 
-      if(!obj[id]) return obj[id] = {
-        min: f2c(current.main.temp_min), 
+      if (!obj[id]) return obj[id] = {
+        min: f2c(current.main.temp_min),
         max: f2c(current.main.temp_max),
         iconUp: icon(current.weather[0].icon),
         iconDown: icon(current.weather[0].icon),
         week: day(t[3]),
-        date: t[1] + '/' + t[2] 
-      }; 
-      
+        date: t[1] + '/' + t[2]
+      };
+
       obj[id].min = Math.min(f2c(current.main.temp_min), obj[id].min);
       obj[id].max = Math.max(f2c(current.main.temp_max), obj[id].max);
       obj[id].iconDown = icon(current.weather[0].icon);
     });
-    
-    Object.keys(obj).sort(function(a, b) {
+
+    Object.keys(obj).sort(function (a, b) {
       return a - b;
-    }).forEach(function(id) {
+    }).forEach(function (id) {
       arr.push(obj[id]);
     });
-    
+
     return arr;
   })(data.list);
-  
+
   var chart = {
     max: [],
     min: [],
     labels: ['']
   };
-  
-  week.forEach(function(item) {
+
+  week.forEach(function (item) {
     chart.max.push(item.max);
     chart.min.push(item.min);
     chart.labels.push(item.week);
   });
-  
+
   chart.min.push(chart.min[0]);
   chart.max.push(chart.max[0]);
   chart.min.unshift(chart.min[0]);
   chart.max.unshift(chart.max[0]);
   chart.labels.push('');
-  
+
   return {
     current: current,
     week: week,
@@ -151,7 +150,7 @@ function compose(data) {
 
 // embed chart
 function chart(data) {
-  
+
   data = {
     labels: data.labels,
     datasets: [
@@ -177,7 +176,7 @@ function chart(data) {
       }
     ]
   };
-  
+
   var options = {
     showScale: false,
     scaleShowLabels: false,
@@ -187,11 +186,11 @@ function chart(data) {
     showYAxisLabel: false,
     responsive: true,
     tooltipTemplate: "<%= value %>",
-    showTooltips: false
-//    onAnimationComplete: function () {
-//      this.showTooltip(this.datasets[0].points, true);
-//    },
-//    tooltipEvents: []
+    showTooltips: false,
+    //    onAnimationComplete: function () {
+    //      this.showTooltip(this.datasets[0].points, true);
+    //    },
+    tooltipEvents: []
   };
 
   var temperature = $('#chart');
