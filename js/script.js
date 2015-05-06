@@ -39,13 +39,13 @@ var day = (function () {
 
 // is the app installed on home screen
 void function standalone() {
-  if (!navigator.standalone) body.classList.add('standalone');
+  if (navigator.standalone) body.classList.add('standalone');
 } ();
 
 // fetch data
 void function weather() {
   //if (!navigator.standalone) return;
-  
+
   var script = document.createElement('script');
   var fish = document.querySelector('#fish');
   var data = cache();
