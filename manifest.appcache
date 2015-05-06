@@ -1,12 +1,12 @@
 CACHE MANIFEST
-# 2015-05-06 v1.0.5
+# 2015-05-06 v1.0.7
 
 # css
 css/weather-icons.css
 
 # font
 font/WeatherIcons-Regular.otf
-font/lato.woff
+font/lato.woff2
 font/weathericons-regular-webfont.eot
 font/weathericons-regular-webfont.svg
 font/weathericons-regular-webfont.ttf

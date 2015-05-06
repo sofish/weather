@@ -1,13 +1,13 @@
 @font-face {
   font-family: 'Lato';
   font-style: normal;
-  font-weight: 100;
-  src: local('Lato Hairline'), local('Lato-Hairline'), url(../font/lato.woff) format('woff');
+  font-weight: 300;
+  src: local('Lato Hairline'), local('Lato-Hairline'), url(../font/lato.woff2) format('woff2');
 }
 
 *{padding:0;margin:0;box-sizing:border-box;-webkit-box-sizing:border-box;}
 html,body{background:#3d566e;height:100%;color:#fff;padding:0;margin:0;}
-body{font:normal 1.5em/1.3 Lato, Avenir, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;}
+body{font:normal 1.5em/1.3 LatoMax, Avenir, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;}
 
 .center, .horizon{text-align:center;}
 .center{position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%, -50%);transform:translate(-50%, -50%);}
