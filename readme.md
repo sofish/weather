@@ -1,0 +1,1 @@
+访问 http://sofi.sh/weather/ 试试。
