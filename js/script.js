@@ -51,7 +51,6 @@ void function weather() {
   var data = cache();
 
   if (data) {
-    console.log(data);
     loaded(), render(data, true);
   } else {
     this.render = render;
