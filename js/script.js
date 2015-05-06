@@ -196,11 +196,12 @@ function chart(data) {
     scaleShowGridLines: false,
     showYAxisLabel: false,
     responsive: true,
-    tooltipTemplate: "<%= value %>",
+    tooltipTemplate: '<%= value %>',
     showTooltips: false,
-    //    onAnimationComplete: function () {
-    //      this.showTooltip(this.datasets[0].points, true);
-    //    },
+    //onAnimationComplete: function () {
+    //  this.showTooltip(this.datasets[0].points, true);
+    //  this.showTooltip(this.datasets[1].points, true);
+    //},
     tooltipEvents: []
   };
 
