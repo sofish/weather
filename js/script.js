@@ -39,24 +39,32 @@ var day = (function () {
 
 // is the app installed on home screen
 void function standalone() {
-  if (navigator.standalone) body.classList.add('standalone');
+  if (!navigator.standalone) body.classList.add('standalone');
 } ();
 
 // fetch data
 void function weather() {
-  if (!navigator.standalone) return;
+  //if (!navigator.standalone) return;
 
   var script = document.createElement('script');
   var fish = document.querySelector('#fish');
+  var data = cache();
 
-  script.onload = loaded;
-  script.src = 'http://api.openweathermap.org/data/2.5/forecast?q=Shanghai,cn&lang=zh_cn&callback=render';
+  if (data) {
+    console.log(data);
+    loaded(), render(data, true);
+  } else {
+    this.render = render;
 
-  this.render = render;
-  body.appendChild(script);
-  
+    script.onload = loaded;
+    script.src = 'http://api.openweathermap.org/data/2.5/forecast?q=Shanghai,cn&lang=zh_cn&callback=render';
+    body.appendChild(script);
+  }
+
   // render data
-  function render(data) {
+  function render(data, isFromCahce) {
+    if(!isFromCahce) cache(data);
+
     data = compose(data);
     fish.innerHTML = fish.innerHTML + template(data);
     chart(data.chart);
@@ -216,3 +224,25 @@ function template(data) {
   return Mustache.render($('#template').innerHTML, data);
 }
 
+
+// cache weather data: 60 * 60 * 1000 ms
+function cache(data) {
+  var oneHr = 1 * 60 * 60 * 1000;
+  var info = localStorage.getItem('weather');
+  var now = Date.now();
+
+  if(!info && !data) return;
+
+  info = JSON.parse(info);
+
+  // use cache
+  if(!data && ((now - info.timestamp) < oneHr)) {
+    return info.data;
+  // save to local
+  } else if(data) {
+    return localStorage.setItem('weather', JSON.stringify({
+      timestamp: now,
+      data: data
+    }));
+  }
+}
