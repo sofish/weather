@@ -1,0 +1,6 @@
+.DS_Store
+.idea/
+*.lock
+*.log
+node_modules
+build

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Weather Fish">
+      
+    <link rel="apple-touch-icon-precomposed" href="img/weatherfish.png">
+    <link rel="shortcur icon" href="img/weatherfish.png">
+    <link rel="stylesheet" href="css/weather-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <title>Weather Fish</title>
+  </head>
+  
+  <body>
+    <div id="install" class="center">
+      <img src="img/weatherfish.png" width="100" alt="WeatherFish">
+      <p>Please visit this page from your iOS device and install it on your home screen.</p>
+    </div>
+    
+    
+      
+    <div id="fish">
+      <div id="loading" class="active">
+        <div class="center">Loading...</div>
+      </div>
+    
+      <script id="template" type="x-tmpl-mustache">
+        <div id="status">
+          {{current.city}} / {{current.date}}
+          <strong>{{current.weather}}  {{current.temp}}°</strong>
+        </div>
+        
+        <div id="current">
+          <i class="wi {{current.icon}} swing"></i>
+        </div>
+        
+        <div id="history">
+          <div id="temperature" class="center">
+            <canvas id="chart"></canvas>
+          </div>
+          
+          <ul id="list">
+            {{#week}}
+            <li>{{week}}<br>
+            <i class="wi {{iconUp}}"></i><br>
+            <span>
+            <i class="wi {{iconDown}}"></i><br>
+            {{date}}
+            </span>
+            {{/week}}
+          </ul>
+        </div>
+      </script>
+    </div> 
+    
+    <script src="js/mustache.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

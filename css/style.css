@@ -1,0 +1,105 @@
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Lato Hairline'), local('Lato-Hairline'), url(../font/lato.woff) format('woff');
+}
+
+*{padding:0;margin:0;box-sizing:border-box;-webkit-box-sizing:border-box;}
+html,body{background:#3d566e;height:100%;color:#fff;padding:0;margin:0;}
+body{font:normal 1.5em/1.3 Lato, Avenir, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;}
+
+.center, .horizon{text-align:center;}
+.center{position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%, -50%);transform:translate(-50%, -50%);}
+.horizon{position:absolute;left:50%;-webkit-transform:translate(-50%);transform:translate(-50%);padding:0 10px;}
+
+#install{width:80%;}
+#fish, .standalone #install{display:none;}
+.standalone #fish{display:block;}
+
+#loading{position:fixed;z-index:-1;width:100%;height:100%;left:0;top:0;opacity:0;background:#3d566e;webkit-transition:opacity, width 1s ease-in-out;transition:opacity, width 1s ease-in-out;}
+#loading.active{opacity:1;z-index:1;}
+
+#status{margin:60px 0 50px;text-align:center;font-size:0.8em;color:#95a5a6;}
+#status strong{font-size:24px;line-height:3;display:block;color:#f1c40f;}
+
+#current{text-align:center;margin-bottom:50px;}
+#current .wi{font-size:150px;}
+
+#history{position:relative;}
+#temperature{z-index:2;height:100px;width:100%;}
+
+#list{position:relative;z-index:1;list-style:none;overflow:hidden;padding:0 8%;}
+#list li{position:relative;border-right:1px dotted #2c3e50;display:block;height:220px;padding:10px 0;width:16.6%;float:left;font-size:0.5em;white-space:nowrap;text-align:center;}
+#list span{position:absolute;bottom:0;display:block;width:100%;}
+#list i{font-size:1.5em;margin:20px 0;display:inline-block;}
+#list li:last-of-type{border:none;}
+
+@-webkit-keyframes swing {
+  20% {
+    -webkit-transform: rotate3d(0, 0, 1, 15deg);
+    transform: rotate3d(0, 0, 1, 15deg);
+  }
+
+  40% {
+    -webkit-transform: rotate3d(0, 0, 1, -10deg);
+    transform: rotate3d(0, 0, 1, -10deg);
+  }
+
+  60% {
+    -webkit-transform: rotate3d(0, 0, 1, 5deg);
+    transform: rotate3d(0, 0, 1, 5deg);
+  }
+
+  80% {
+    -webkit-transform: rotate3d(0, 0, 1, -5deg);
+    transform: rotate3d(0, 0, 1, -5deg);
+  }
+
+  100% {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+}
+
+@keyframes swing {
+  20% {
+    -webkit-transform: rotate3d(0, 0, 1, 15deg);
+    transform: rotate3d(0, 0, 1, 15deg);
+  }
+
+  40% {
+    -webkit-transform: rotate3d(0, 0, 1, -10deg);
+    transform: rotate3d(0, 0, 1, -10deg);
+  }
+
+  60% {
+    -webkit-transform: rotate3d(0, 0, 1, 5deg);
+    transform: rotate3d(0, 0, 1, 5deg);
+  }
+
+  80% {
+    -webkit-transform: rotate3d(0, 0, 1, -5deg);
+    transform: rotate3d(0, 0, 1, -5deg);
+  }
+
+  100% {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+}
+
+.swing {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 3s;
+  animation-delay: 3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-transform-origin: center center;
+  transform-origin: center center;
+  -webkit-animation-name: swing;
+  animation-name: swing;
+}
+
+
