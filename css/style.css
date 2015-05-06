@@ -102,4 +102,39 @@ body{font:normal 1.5em/1.3 Lato, Avenir, Microsoft Yahei, Hiragino Sans GB, Micr
   animation-name: swing;
 }
 
+.sk-spinner-pulse.sk-spinner {
+  width: 80px;
+  height: 80px;
+  background-color: #8CB5E4;
+  display: block;
+  border-radius: 100%;
+  -webkit-animation: sk-pulseScaleOut 1s infinite ease-in-out;
+  animation: sk-pulseScaleOut 1s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-pulseScaleOut {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-pulseScaleOut {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0;
+  }
+}
 

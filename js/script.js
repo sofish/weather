@@ -45,7 +45,7 @@ void function standalone() {
 // fetch data
 void function weather() {
   //if (!navigator.standalone) return;
-
+  
   var script = document.createElement('script');
   var fish = document.querySelector('#fish');
   var data = cache();
