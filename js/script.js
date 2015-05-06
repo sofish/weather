@@ -86,7 +86,11 @@ function $(selector, parent) {
 
 // refomat data
 function compose(data) {
-  var _current = data.list[3];
+  var _current = data.list.filter(function(item){
+    var now = Date.now();
+    return Math.abs(item.dt * 1000 - now) < (3 * 60 * 60 * 1000); // less than 3 hrs
+  })[0];
+
   var _today = today(Date.now());
   
   // today
